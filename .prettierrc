@@ -1,0 +1,50 @@
+{
+  "printWidth": 100,
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "useTabs": false,
+  "endOfLine": "lf",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "avoid",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxSingleQuote": true,
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "proseWrap": "always",
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro",
+        "singleQuote": true
+      }
+    },
+    {
+      "files": ["*.md", "*.mdx"],
+      "options": {
+        "proseWrap": "always",
+        "singleQuote": false,
+        "printWidth": 100
+      }
+    },
+    {
+      "files": ["*.js", "*.ts", "*.jsx", "*.tsx"],
+      "options": {
+        "parser": "typescript",
+        "jsxSingleQuote": true
+      }
+    },
+    {
+      "files": ["*.yml", "*.yaml", "*.json"],
+      "options": {
+        "singleQuote": false,
+        "printWidth": 130
+      }
+    }
+  ]
+}

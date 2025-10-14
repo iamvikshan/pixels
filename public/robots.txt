@@ -1,0 +1,9 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://vikshanpixels.com/sitemap-index.xml
+
+# Optional: Crawl-delay (in seconds) to be respectful
+Crawl-delay: 1

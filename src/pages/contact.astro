@@ -1,0 +1,262 @@
+---
+import '../styles/global.css'
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import { author } from '../config'
+---
+
+<Layout
+  title='Contact Us | Vikshan Pixels'
+  description='Get in touch with Vikshan Pixels for professional photography and videography services. Contact us for weddings, events, portraits, and commercial shoots.'
+>
+  <Header />
+
+  <section class='px-3 py-20'>
+    <div class='mx-auto max-w-4xl'>
+      <!-- Header -->
+      <div class='mb-10 text-center'>
+        <h1 class='mb-4 text-5xl font-bold'>Get in Touch</h1>
+        <p class='mx-auto max-w-2xl text-xl text-gray-600'>
+          Have a question or want to discuss your project? Send us a message and we'll get back to
+          you within 24 hours.
+        </p>
+      </div>
+
+      <div class='grid grid-cols-1 gap-8 md:grid-cols-2'>
+        <!-- Contact Form -->
+        <div class='border-3 border-black bg-white p-8 shadow-[8px_8px_0px_rgba(0,0,0,0.3)]'>
+          <h2 class='mb-6 text-2xl font-bold'>Send a Message</h2>
+
+          <form id='contactForm' class='space-y-6'>
+            <div>
+              <label for='name' class='mb-2 block text-sm font-medium'> Your Name * </label>
+              <input
+                type='text'
+                id='name'
+                name='name'
+                required
+                class='w-full border-2 border-black p-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                placeholder='John Doe'
+              />
+            </div>
+
+            <div>
+              <label for='email' class='mb-2 block text-sm font-medium'> Email Address * </label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                inputmode='email'
+                autocomplete='email'
+                required
+                class='w-full border-2 border-black p-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                placeholder='john@example.com'
+              />
+            </div>
+
+            <div>
+              <label for='phone' class='mb-2 block text-sm font-medium'> Phone Number </label>
+              <input
+                type='tel'
+                id='phone'
+                name='phone'
+                inputmode='tel'
+                autocomplete='tel'
+                class='w-full border-2 border-black p-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                placeholder='+254 712 345 678'
+              />
+            </div>
+
+            <div>
+              <label for='service' class='mb-2 block text-sm font-medium'>
+                Service Interested In *
+              </label>
+              <select
+                id='service'
+                name='service'
+                required
+                class='w-full border-2 border-black p-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+              >
+                <option value=''>Select a service</option>
+                <option value='Wedding Photography'>Wedding Photography</option>
+                <option value='Event Photography'>Event Photography</option>
+                <option value='Portrait Session'>Portrait Session</option>
+                <option value='Commercial Photography'>Commercial Photography</option>
+                <option value='Videography'>Videography</option>
+                <option value='Other'>Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label for='message' class='mb-2 block text-sm font-medium'> Your Message * </label>
+              <textarea
+                id='message'
+                name='message'
+                required
+                rows='5'
+                class='w-full border-2 border-black p-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                placeholder='Tell us about your project, event date, location, etc.'></textarea>
+            </div>
+
+            <button
+              type='submit'
+              class='w-full border-3 border-black bg-black px-6 py-3 font-bold text-white transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
+            >
+              Send Message
+            </button>
+
+            <div id='formMessage' class='hidden rounded p-4 text-center'></div>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class='space-y-6'>
+          <!-- Contact Details -->
+          <div class='border-2 border-black bg-white p-6'>
+            <h3 class='mb-4 text-xl font-bold'>Contact Information</h3>
+            <div class='space-y-4'>
+              <a
+                href={author.email}
+                class='flex items-center gap-3 transition-colors hover:text-gray-600'
+              >
+                <i class='ri-mail-line text-2xl'></i>
+                <span>vikshanpixels@gmail.com</span>
+              </a>
+
+              <a
+                href={author.whatsapp}
+                target='_blank'
+                class='flex items-center gap-3 transition-colors hover:text-gray-600'
+              >
+                <i class='ri-whatsapp-line text-2xl'></i>
+                <span>{author.phone}</span>
+              </a>
+
+              <div class='flex items-center gap-3'>
+                <i class='ri-map-pin-line text-2xl'></i>
+                <span>Kenya</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media -->
+          <div class='border-2 border-black bg-white p-6'>
+            <h3 class='mb-4 text-xl font-bold'>Follow Us</h3>
+            <div class='flex gap-4'>
+              <a
+                href={author.ig}
+                target='_blank'
+                class='text-3xl transition-colors hover:text-gray-600'
+              >
+                <i class='ri-instagram-line'></i>
+              </a>
+              <a
+                href={author.facebook}
+                target='_blank'
+                class='text-3xl transition-colors hover:text-gray-600'
+              >
+                <i class='ri-facebook-fill'></i>
+              </a>
+              <a
+                href={author.tiktok}
+                target='_blank'
+                class='text-3xl transition-colors hover:text-gray-600'
+              >
+                <i class='ri-tiktok-fill'></i>
+              </a>
+              <a
+                href={author.x}
+                target='_blank'
+                class='text-3xl transition-colors hover:text-gray-600'
+              >
+                <i class='ri-twitter-x-line'></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class='bg-yellow border-3 border-black p-6'>
+            <h3 class='mb-4 text-xl font-bold'>Ready to Book?</h3>
+            <p class='mb-4'>Skip the form and book your session directly with our calendar!</p>
+            <a
+              href='/booking'
+              class='inline-block border-3 border-black bg-black px-6 py-3 font-bold text-white transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
+            >
+              Book Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .bg-yellow {
+    background-color: var(--yellow);
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement
+  const message = document.getElementById('formMessage')
+
+  form?.addEventListener('submit', async e => {
+    e.preventDefault()
+
+    const formData = new FormData(form)
+    const data = Object.fromEntries(formData.entries())
+
+    // Show loading state
+    const submitBtn = form.querySelector('button[type="submit"]')
+    if (submitBtn) {
+      submitBtn.textContent = 'Sending...'
+      submitBtn.setAttribute('disabled', 'true')
+    }
+
+    try {
+      // For now, compose mailto link
+      // TODO: Later can integrate with Formspree, Netlify Forms, or custom backend
+      const subject = encodeURIComponent(`Contact Form: ${data.service}`)
+      const body = encodeURIComponent(`
+Name: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone}
+Service: ${data.service}
+
+Message:
+${data.message}
+      `)
+
+      // Open mailto link
+      window.location.href = `mailto:vikshanpixels@gmail.com?subject=${subject}&body=${body}`
+
+      // Show success message
+      if (message) {
+        message.textContent =
+          "Opening your email client... If it doesn't open, please email us directly at vikshanpixels@gmail.com"
+        message.className =
+          'block text-center p-4 rounded bg-green-100 text-green-800 border-2 border-black'
+      }
+
+      // Reset form
+      form.reset()
+    } catch (error) {
+      if (message) {
+        message.textContent =
+          'Oops! Something went wrong. Please email us directly at vikshanpixels@gmail.com or WhatsApp us.'
+        message.className =
+          'block text-center p-4 rounded bg-red-100 text-red-800 border-2 border-black'
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.textContent = 'Send Message'
+        submitBtn.removeAttribute('disabled')
+      }
+      message?.classList.remove('hidden')
+    }
+  })
+</script>

@@ -1,0 +1,69 @@
+---
+layout: ../../components/MarkdownPost.astro
+title: "Behind the Lens: My Journey from Hobbyist to Professional Photographer"
+author:
+  name: "Vikshan"
+  url: "https://images.pexels.com/photos/935743/pexels-photo-935743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+image:
+  url: "https://images.pexels.com/photos/606541/pexels-photo-606541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+  alt: "Camera equipment"
+tags: ["Behind the Scenes", "Photography Journey", "Career"]
+pubDate: "Sep 22, 2024"
+likes: "3.8k"
+comments: "124"
+---
+
+<!-- @format -->
+
+Every photographer has a story about how they fell in love with capturing moments. Mine started with
+a borrowed camera at a friend's wedding five years ago. Today, as the founder of Vikshan Pixels, I
+want to share the journey that transformed my passion into a profession.
+
+## The Spark
+
+It was 2019, and I was asked to take "a few photos" at a friend's wedding because I had shown
+interest in photography. Armed with a basic DSLR, I captured candid moments throughout the day. When
+I showed the couple the edited photos weeks later, their emotional reaction changed everything.
+Those weren't just photos—they were memories frozen in time, emotions preserved forever.
+
+## The Learning Curve
+
+I spent the next year consuming every photography tutorial, joining online communities, and
+practicing constantly. I shot everything: street photography, portraits of friends, local
+events—anything to understand light, composition, and storytelling. The technical skills were
+important, but I learned that great photography is about connecting with people and understanding
+their stories.
+
+## Taking the Leap
+
+Transitioning from hobbyist to professional was terrifying. I invested in better equipment, built a
+portfolio, and most importantly, I started treating it like a business. I created Vikshan Pixels
+with a clear vision: Every Pixel, Every Moment, Perfected. It wasn't just about taking photos—it was
+about delivering an experience.
+
+## The Challenges
+
+The first year was tough. Marketing myself felt uncomfortable. Dealing with difficult clients taught
+me patience. Technical failures during shoots taught me to have backup plans for my backup plans.
+But each challenge made me better, more prepared, and more confident in my craft.
+
+## What I've Learned
+
+- **Equipment doesn't make the photographer**: A great photographer can create art with any camera.
+  Invest in your skills first, gear second.
+- **People over pictures**: Photography is a people business. Building relationships and
+  understanding your clients' visions is more important than technical perfection.
+- **Never stop learning**: Even after 5 years, I'm constantly discovering new techniques, studying
+  other photographers' work, and pushing my creative boundaries.
+- **Consistency is key**: Building a business requires showing up every day, even when inspiration
+  is lacking.
+
+## Looking Forward
+
+Today, Vikshan Pixels has covered over 100 events, worked with amazing clients, and created memories
+that will last lifetimes. But I'm just getting started. My goal is to continue growing, exploring
+new creative directions, and most importantly, telling stories that matter.
+
+If you're considering turning your photography passion into a profession, my advice is simple: Start
+now. Don't wait for perfect—perfect never comes. Take that first paid gig, learn from every shoot,
+and remember why you picked up a camera in the first place.

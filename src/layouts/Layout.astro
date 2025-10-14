@@ -1,0 +1,142 @@
+---
+import { SEO } from 'astro-seo'
+
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+  article?: boolean
+}
+
+const {
+  title = 'Vikshan Pixels | Every Pixel, Every Moment, Perfected',
+  description = 'Professional photography and videography services in Kenya. Transforming moments into unforgettable stories through expert photography, videography, editing, and event planning.',
+  image = '/og-image.jpg',
+  article = false
+} = Astro.props
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link rel='preconnect' href='https://cdn.jsdelivr.net' />
+
+    <!-- DNS prefetch for Cal.com -->
+    <link rel='dns-prefetch' href='https://cal.com' />
+
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonicalURL.toString()}
+      openGraph={{
+        basic: {
+          title: title,
+          type: article ? 'article' : 'website',
+          image: new URL(image, Astro.site).toString()
+        },
+        optional: {
+          description: description,
+          siteName: 'Vikshan Pixels'
+        }
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        site: '@iamvikshan',
+        creator: '@iamvikshan',
+        title: title,
+        description: description,
+        image: new URL(image, Astro.site).toString()
+      }}
+      extend={{
+        link: [{ rel: 'sitemap', href: '/sitemap-index.xml' }],
+        meta: [
+          {
+            name: 'twitter:image',
+            content: new URL(image, Astro.site).toString()
+          },
+          { name: 'twitter:title', content: title },
+          { name: 'twitter:description', content: description }
+        ]
+      }}
+    />
+
+    <!-- Google Analytics with Partytown (uncomment and add your GA4 ID) -->
+    <!--
+    <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+
+    <!-- Alternative: Plausible Analytics (privacy-friendly, GDPR compliant) -->
+    <!-- Uncomment and add your domain -->
+    <!--
+    <script defer type="text/partytown" data-domain="vikshanpixels.com" src="https://plausible.io/js/script.js"></script>
+    -->
+
+    <!-- Schema.org markup for Local Business -->
+    <script type='application/ld+json'>
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Vikshan Pixels",
+        "image": "https://vikshanpixels.com/og-image.jpg",
+        "@id": "https://vikshanpixels.com",
+        "url": "https://vikshanpixels.com",
+        "telephone": "+254715012665",
+        "email": "vikshanpixels@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "KE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -1.286389,
+          "longitude": 36.817223
+        },
+        "sameAs": [
+          "https://instagram.com/iamvikshan",
+          "https://facebook.com/iamvikshan",
+          "https://tiktok.com/@iamvikshan",
+          "https://twitter.com/iamvikshan"
+        ],
+        "priceRange": "$$",
+        "serviceType": ["Photography", "Videography", "Event Planning", "Photo Editing"]
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style>
+  :root {
+    --main-bg: #fefff0;
+    --blue: #bae6ff;
+    --yellow: #ffdc58;
+  }
+
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-bg);
+    font-family: 'Space Grotesk', sans-serif;
+    scroll-behavior: smooth;
+  }
+</style>

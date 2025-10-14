@@ -1,0 +1,44 @@
+---
+import logoStar from '../assets/logo-star.svg'
+import { author } from '../config'
+
+const socials = [
+  { icon: 'ri-instagram-line', link: author.ig },
+  { icon: 'ri-facebook-fill', link: author.facebook },
+  { icon: 'ri-tiktok-fill', link: author.tiktok },
+  { icon: 'ri-twitter-x-line', link: author.x },
+  { icon: 'ri-whatsapp-fill', link: author.whatsapp }
+]
+---
+
+<footer class='mt-30 border-t-4 px-5 py-10 md:px-0'>
+  <div
+    class='mx-auto flex max-w-3xl flex-col items-center justify-center gap-5 md:grid md:grid-cols-3 md:gap-0'
+  >
+    <div class='flex-1 font-bold'>
+      <a href='/' class='flex items-center gap-3 text-xl'>
+        <img src={logoStar.src} alt='logo' width='30' />
+        {author.nickname}
+      </a>
+    </div>
+    <div class='text-center'>
+      <p>
+        © {new Date().getFullYear()}
+        {author.nickname}. All rights reserved.
+      </p>
+    </div>
+    <div class='flex gap-5 md:justify-end'>
+      {
+        socials.map(item => (
+          <a
+            href={item.link}
+            target='_blank'
+            class='transition-all duration-200 hover:translate-y-[2px]'
+          >
+            <i class={`${item.icon} text-2xl`} />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>

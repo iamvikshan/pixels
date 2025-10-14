@@ -1,0 +1,549 @@
+---
+import '../styles/global.css'
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Layout
+  title='Book a Session | Vikshan Pixels'
+  description='Book your photography or videography session with Vikshan Pixels. Choose from consultations, portrait sessions, weddings, corporate events, and commercial shoots.'
+>
+  <style is:global>
+    /* Cal.com custom styling to match brutalist/pixel art design */
+
+    /* Main Cal.com container - force light mode */
+    [id^='cal-embed-'],
+    [data-cal-namespace],
+    .cal-embed {
+      font-family: 'Space Grotesk', sans-serif !important;
+      background-color: white !important;
+      color: black !important;
+    }
+
+    /* All Cal.com buttons - brutalist style */
+    [id^='cal-embed-'] button,
+    [data-cal-namespace] button {
+      border: 2px solid black !important;
+      border-radius: 0 !important;
+      font-weight: 600 !important;
+      font-family: 'Space Grotesk', sans-serif !important;
+      transition: all 0.15s ease !important;
+      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    [id^='cal-embed-'] button:hover,
+    [data-cal-namespace] button:hover {
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3) !important;
+      transform: translate(-1px, -1px) !important;
+    }
+
+    /* Primary action buttons - black background */
+    [id^='cal-embed-'] button[type='submit'],
+    [id^='cal-embed-'] button[data-testid*='confirm'],
+    [id^='cal-embed-'] button[data-testid*='book'],
+    [data-cal-namespace] button[type='submit'] {
+      background-color: #000000 !important;
+      color: white !important;
+      border: 3px solid black !important;
+      padding: 0.75rem 1.5rem !important;
+    }
+
+    [id^='cal-embed-'] button[type='submit']:hover,
+    [data-cal-namespace] button[type='submit']:hover {
+      background-color: #1a1a1a !important;
+    }
+
+    /* Calendar month/week navigation */
+    [id^='cal-embed-'] [class*='calendar'],
+    [data-cal-namespace] [class*='calendar'] {
+      border: 2px solid black !important;
+      border-radius: 0 !important;
+    }
+
+    /* Calendar date cells */
+    [id^='cal-embed-'] [class*='date'],
+    [id^='cal-embed-'] td,
+    [data-cal-namespace] [class*='date'],
+    [data-cal-namespace] td {
+      border: 1px solid #e5e5e5 !important;
+      border-radius: 0 !important;
+    }
+
+    /* Today's date */
+    [id^='cal-embed-'] [class*='today'],
+    [data-cal-namespace] [class*='today'] {
+      background-color: #fefff0 !important; /* Your site's bg color */
+      border: 2px solid black !important;
+      font-weight: 700 !important;
+    }
+
+    /* Selected date - use your yellow */
+    [id^='cal-embed-'] [class*='selected'],
+    [id^='cal-embed-'] [aria-selected='true'],
+    [data-cal-namespace] [class*='selected'],
+    [data-cal-namespace] [aria-selected='true'] {
+      background-color: #ffdc58 !important; /* Your yellow */
+      border: 2px solid black !important;
+      color: black !important;
+      font-weight: 700 !important;
+    }
+
+    /* Available date hover */
+    [id^='cal-embed-'] [class*='date']:not([disabled]):hover,
+    [data-cal-namespace] [class*='date']:not([disabled]):hover {
+      background-color: #ffdc58 !important;
+      border: 2px solid black !important;
+    }
+
+    /* Disabled/unavailable dates */
+    [id^='cal-embed-'] [disabled],
+    [id^='cal-embed-'] [class*='disabled'],
+    [data-cal-namespace] [disabled] {
+      opacity: 0.3 !important;
+      background-color: #f5f5f5 !important;
+    }
+
+    /* Time slot buttons */
+    [id^='cal-embed-'] [class*='time'],
+    [id^='cal-embed-'] [role='button'][class*='slot'],
+    [data-cal-namespace] [class*='time'] {
+      border: 2px solid black !important;
+      border-radius: 0 !important;
+      background: white !important;
+      padding: 0.5rem 1rem !important;
+      font-weight: 600 !important;
+      margin: 0.25rem !important;
+    }
+
+    [id^='cal-embed-'] [class*='time']:hover,
+    [id^='cal-embed-'] [role='button'][class*='slot']:hover,
+    [data-cal-namespace] [class*='time']:hover {
+      background-color: #ffdc58 !important; /* Your yellow */
+      border: 2px solid black !important;
+      box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Selected time slot */
+    [id^='cal-embed-'] [class*='time'][class*='selected'],
+    [data-cal-namespace] [class*='time'][class*='selected'] {
+      background-color: #000000 !important;
+      color: white !important;
+      border: 2px solid black !important;
+    }
+
+    /* Input fields - match your forms */
+    [id^='cal-embed-'] input,
+    [id^='cal-embed-'] textarea,
+    [id^='cal-embed-'] select,
+    [data-cal-namespace] input,
+    [data-cal-namespace] textarea,
+    [data-cal-namespace] select {
+      border: 2px solid black !important;
+      border-radius: 0 !important;
+      padding: 0.75rem !important;
+      font-size: 1rem !important;
+      font-family: 'Space Grotesk', sans-serif !important;
+      background-color: white !important;
+      color: black !important;
+    }
+
+    [id^='cal-embed-'] input:focus,
+    [id^='cal-embed-'] textarea:focus,
+    [id^='cal-embed-'] select:focus,
+    [data-cal-namespace] input:focus,
+    [data-cal-namespace] textarea:focus,
+    [data-cal-namespace] select:focus {
+      outline: none !important;
+      border: 2px solid black !important;
+      box-shadow: 0 0 0 3px #ffdc58 !important; /* Yellow focus ring */
+    }
+
+    /* Labels */
+    [id^='cal-embed-'] label,
+    [data-cal-namespace] label {
+      font-weight: 600 !important;
+      color: black !important;
+      font-family: 'Space Grotesk', sans-serif !important;
+    }
+
+    /* Cards/Modals - remove rounded corners */
+    [id^='cal-embed-'] [class*='card'],
+    [id^='cal-embed-'] [class*='modal'],
+    [id^='cal-embed-'] [class*='dialog'],
+    [data-cal-namespace] [class*='card'],
+    [data-cal-namespace] [class*='modal'] {
+      border-radius: 0 !important;
+      border: 3px solid black !important;
+      box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    /* Remove soft shadows, make them bold */
+    [id^='cal-embed-'] [class*='shadow'],
+    [data-cal-namespace] [class*='shadow'] {
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Links */
+    [id^='cal-embed-'] a,
+    [data-cal-namespace] a {
+      color: black !important;
+      text-decoration: underline !important;
+      font-weight: 600 !important;
+    }
+
+    [id^='cal-embed-'] a:hover,
+    [data-cal-namespace] a:hover {
+      color: #333 !important;
+    }
+
+    /* Event type details */
+    [id^='cal-embed-'] [class*='event'],
+    [data-cal-namespace] [class*='event'] {
+      border: 2px solid black !important;
+      border-radius: 0 !important;
+      background-color: white !important;
+    }
+
+    /* Duration/price badges */
+    [id^='cal-embed-'] [class*='badge'],
+    [data-cal-namespace] [class*='badge'] {
+      background-color: #ffdc58 !important;
+      color: black !important;
+      border: 2px solid black !important;
+      border-radius: 0 !important;
+      font-weight: 700 !important;
+    }
+
+    /* Loading states */
+    [id^='cal-embed-'] [class*='loading'],
+    [id^='cal-embed-'] [class*='spinner'],
+    [data-cal-namespace] [class*='loading'] {
+      border-color: black !important;
+      border-top-color: #ffdc58 !important;
+    }
+
+    /* Success messages */
+    [id^='cal-embed-'] [class*='success'],
+    [data-cal-namespace] [class*='success'] {
+      background-color: #bae6ff !important; /* Your blue */
+      border: 2px solid black !important;
+      color: black !important;
+    }
+
+    /* Error messages */
+    [id^='cal-embed-'] [class*='error'],
+    [data-cal-namespace] [class*='error'] {
+      background-color: #ffdc58 !important;
+      border: 2px solid black !important;
+      color: black !important;
+    }
+
+    /* Ensure no dark mode leakage */
+    [id^='cal-embed-'] *,
+    [data-cal-namespace] * {
+      color: inherit !important;
+    }
+
+    /* Month/Year dropdown */
+    [id^='cal-embed-'] select[class*='month'],
+    [id^='cal-embed-'] select[class*='year'],
+    [data-cal-namespace] select {
+      border: 2px solid black !important;
+      background-color: white !important;
+      padding: 0.5rem !important;
+    }
+
+    /* Calendar header (days of week) */
+    [id^='cal-embed-'] th,
+    [data-cal-namespace] th {
+      font-weight: 700 !important;
+      color: black !important;
+      border-bottom: 2px solid black !important;
+    }
+  </style>
+
+  <Layout>
+    <Header />
+
+    <section class='px-3 py-20'>
+      <div class='mx-auto max-w-4xl'>
+        <!-- Header -->
+        <div class='mb-10 text-center'>
+          <h1 class='mb-4 text-5xl font-bold'>Book Your Session</h1>
+          <p class='mx-auto max-w-2xl text-xl text-gray-600'>
+            Choose the service that best fits your needs and select a convenient time. Let's create
+            something amazing together!
+          </p>
+        </div>
+
+        <!-- Event Type Selector -->
+        <div class='mb-8'>
+          <label for='eventType' class='mb-3 block text-lg font-medium'>Select Service Type:</label>
+          <select
+            id='eventType'
+            class='w-full border-3 border-black bg-white p-4 text-lg font-medium focus:ring-2 focus:ring-yellow-400 focus:outline-none md:w-auto'
+          >
+            <option value='consultation'>📞 Free Consultation (30 min)</option>
+            <option value='full-day-event'>💍 Full Day Event (Weddings, etc.)</option>
+            <option value='half-day-event'>🎉 Half Day Event</option>
+            <option value='portrait-session'>📸 Portrait Session</option>
+            <option value='commercial-shoot'>🏢 Commercial Photography</option>
+            <option value='videography'>🎥 Videography Session</option>
+          </select>
+        </div>
+
+        <!-- Service Descriptions -->
+        <div id='serviceDescription' class='mb-8 border-2 border-black bg-white p-6'>
+          <div data-service='consultation'>
+            <h3 class='mb-2 text-2xl font-bold'>Free Consultation</h3>
+            <p class='text-gray-700'>
+              A complimentary 30-minute video call to discuss your photography/videography needs,
+              timeline, budget, and vision. Perfect for getting to know each other before
+              committing.
+            </p>
+          </div>
+          <div data-service='full-day-event' class='hidden'>
+            <h3 class='mb-2 text-2xl font-bold'>Full Day Event Coverage</h3>
+            <p class='text-gray-700'>
+              Complete coverage for weddings, corporate events, or special celebrations. Includes
+              8-10 hours of photography/videography, edited photos, and cinematic video.
+            </p>
+          </div>
+          <div data-service='half-day-event' class='hidden'>
+            <h3 class='mb-2 text-2xl font-bold'>Half Day Event Coverage</h3>
+            <p class='text-gray-700'>
+              Perfect for smaller events, parties, or ceremonies. Includes 4-5 hours of coverage
+              with edited photos and highlight reel.
+            </p>
+          </div>
+          <div data-service='portrait-session' class='hidden'>
+            <h3 class='mb-2 text-2xl font-bold'>Portrait Session</h3>
+            <p class='text-gray-700'>
+              Individual, couple, or family portraits in studio or outdoor location. Includes 1-2
+              hours of shooting time with professionally edited images.
+            </p>
+          </div>
+          <div data-service='commercial-shoot' class='hidden'>
+            <h3 class='mb-2 text-2xl font-bold'>Commercial Photography</h3>
+            <p class='text-gray-700'>
+              Professional product photography, real estate, or corporate headshots. Perfect for
+              businesses needing high-quality imagery for marketing.
+            </p>
+          </div>
+          <div data-service='videography' class='hidden'>
+            <h3 class='mb-2 text-2xl font-bold'>Videography Session</h3>
+            <p class='text-gray-700'>
+              Cinematic video production for promotional content, events, or personal projects.
+              Includes filming, editing, color grading, and music.
+            </p>
+          </div>
+        </div>
+
+        <!-- Cal.com Embed Container -->
+        <div class='border-3 border-black bg-white p-6 shadow-[8px_8px_0px_rgba(0,0,0,0.3)]'>
+          <!-- Consultation Embed -->
+          <div id='cal-embed-consultation' style='width:100%;height:700px;overflow:auto'></div>
+
+          <!-- Full Day Event Embed -->
+          <div
+            id='cal-embed-full-day-event'
+            style='width:100%;height:700px;overflow:auto'
+            class='hidden'
+          >
+          </div>
+
+          <!-- Half Day Event Embed -->
+          <div
+            id='cal-embed-half-day-event'
+            style='width:100%;height:700px;overflow:auto'
+            class='hidden'
+          >
+          </div>
+
+          <!-- Portrait Session Embed -->
+          <div
+            id='cal-embed-portrait-session'
+            style='width:100%;height:700px;overflow:auto'
+            class='hidden'
+          >
+          </div>
+
+          <!-- Commercial Shoot Embed -->
+          <div
+            id='cal-embed-commercial-shoot'
+            style='width:100%;height:700px;overflow:auto'
+            class='hidden'
+          >
+          </div>
+
+          <!-- Videography Embed -->
+          <div
+            id='cal-embed-videography'
+            style='width:100%;height:700px;overflow:auto'
+            class='hidden'
+          >
+          </div>
+
+          <!-- Fallback -->
+          <div id='loading-message' class='py-20 text-center'>
+            <p class='mb-4 text-xl'>Loading calendar...</p>
+            <p class='text-gray-600'>
+              If the calendar doesn't load,
+              <a href='https://cal.com/vikspix' target='_blank' class='text-blue-600 underline'>
+                click here to book directly
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Alternative -->
+        <div class='mt-10 border-2 bg-gray-50 p-6 text-center'>
+          <p class='mb-2 text-lg'>Prefer to discuss over email?</p>
+          <a href='mailto:vikshanpixels@gmail.com' class='font-medium text-blue-600 underline'>
+            vikshanpixels@gmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </Layout>
+
+  <script is:inline>
+    // Cal.com initialization
+    ;(function (C, A, L) {
+      let p = function (a, ar) {
+        a.q.push(ar)
+      }
+      let d = C.document
+      C.Cal =
+        C.Cal ||
+        function () {
+          let cal = C.Cal
+          let ar = arguments
+          if (!cal.loaded) {
+            cal.ns = {}
+            cal.q = cal.q || []
+            d.head.appendChild(d.createElement('script')).src = A
+            cal.loaded = true
+          }
+          if (ar[0] === L) {
+            const api = function () {
+              p(api, arguments)
+            }
+            const namespace = ar[1]
+            api.q = api.q || []
+            if (typeof namespace === 'string') {
+              cal.ns[namespace] = cal.ns[namespace] || api
+              p(cal.ns[namespace], ar)
+              p(cal, ['initNamespace', namespace])
+            } else p(cal, ar)
+            return
+          }
+          p(cal, ar)
+        }
+    })(window, 'https://app.cal.com/embed/embed.js', 'init')
+
+    // Event type configurations
+    // TODO: Create these event types in your Cal.com dashboard and update the slugs
+    const eventTypes = {
+      consultation: {
+        namespace: 'consultation',
+        calLink: 'vikspix/consultation',
+        containerId: 'cal-embed-consultation'
+      },
+      'full-day-event': {
+        namespace: 'fullday',
+        calLink: 'vikspix/full-day-event',
+        containerId: 'cal-embed-full-day-event'
+      },
+      'half-day-event': {
+        namespace: 'halfday',
+        calLink: 'vikspix/half-day-event',
+        containerId: 'cal-embed-half-day-event'
+      },
+      'portrait-session': {
+        namespace: 'portrait',
+        calLink: 'vikspix/portrait-session',
+        containerId: 'cal-embed-portrait-session'
+      },
+      'commercial-shoot': {
+        namespace: 'commercial',
+        calLink: 'vikspix/commercial-shoot',
+        containerId: 'cal-embed-commercial-shoot'
+      },
+      videography: {
+        namespace: 'videography',
+        calLink: 'vikspix/videography',
+        containerId: 'cal-embed-videography'
+      }
+    }
+
+    // Initialize all Cal.com embeds with custom styling
+    Object.keys(eventTypes).forEach(key => {
+      const config = eventTypes[key]
+      Cal('init', config.namespace, { origin: 'https://app.cal.com' })
+
+      Cal.ns[config.namespace]('inline', {
+        elementOrSelector: `#${config.containerId}`,
+        config: { layout: 'month_view', theme: 'light' },
+        calLink: config.calLink
+      })
+
+      Cal.ns[config.namespace]('ui', {
+        theme: 'light',
+        styles: {
+          branding: {
+            brandColor: '#000000' // Black to match your site
+          }
+        },
+        hideEventTypeDetails: false,
+        layout: 'month_view'
+      })
+    })
+
+    // Hide loading message once Cal is ready
+    setTimeout(() => {
+      const loadingMsg = document.getElementById('loading-message')
+      if (loadingMsg) loadingMsg.style.display = 'none'
+    }, 2000)
+
+    // Event type switcher
+    const eventTypeSelect = document.getElementById('eventType')
+    const allEmbeds = document.querySelectorAll('[id^="cal-embed-"]')
+    const allDescriptions = document.querySelectorAll('[data-service]')
+
+    function switchEventType(eventType) {
+      // Hide all embeds
+      allEmbeds.forEach(embed => {
+        embed.classList.add('hidden')
+      })
+
+      // Hide all descriptions
+      allDescriptions.forEach(desc => {
+        desc.classList.add('hidden')
+      })
+
+      // Show selected embed
+      const selectedEmbed = document.getElementById(`cal-embed-${eventType}`)
+      if (selectedEmbed) {
+        selectedEmbed.classList.remove('hidden')
+      }
+
+      // Show selected description
+      const selectedDesc = document.querySelector(`[data-service="${eventType}"]`)
+      if (selectedDesc) {
+        selectedDesc.classList.remove('hidden')
+      }
+    }
+
+    // Initial load
+    switchEventType('consultation')
+
+    // Listen for changes
+    eventTypeSelect?.addEventListener('change', e => {
+      switchEventType(e.target.value)
+    })
+  </script>
+</Layout>

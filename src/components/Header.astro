@@ -1,0 +1,111 @@
+---
+import logoStar from '../assets/logo-star.svg'
+import svgPinkStar from '../assets/pink-star.svg'
+import { author, buy } from '../config'
+
+const links = [
+  { name: 'Home', path: '/', target: '_self' },
+  { name: 'Portfolio', path: '/#work', target: '_self' },
+  { name: 'Blog', path: '/blog/', target: '_self' },
+  { name: 'Contact', path: '/contact', target: '_self' },
+  { name: 'Book Now', path: '/booking', target: '_self' }
+]
+
+const { pathname } = Astro.url
+---
+
+<header class='relative overflow-hidden border-b-3 p-7'>
+  <img src={svgPinkStar.src} alt='svg' width='80' class='absolute -top-4 -right-9' />
+  <img
+    src={svgPinkStar.src}
+    alt='svg'
+    width='80'
+    class='absolute -bottom-5 -left-8 hidden md:block'
+  />
+
+  <div class='relative z-10 m-auto flex max-w-[310px] border-3 border-black bg-white md:max-w-xl'>
+    <!-- top boxes -->
+    <div class='absolute -top-2 -right-2 size-2 border-2 border-black bg-white'></div>
+    <div class='absolute -top-2 -left-2 size-2 border-2 border-black bg-white'></div>
+
+    <!-- bottom boxes -->
+    <div class='absolute -bottom-2 -left-2 size-2 border-2 border-black bg-white'></div>
+    <div class='absolute -right-2 -bottom-2 size-2 border-2 border-black bg-white'></div>
+
+    <nav class='flex w-full items-center p-2 md:p-0'>
+      <div class='flex-1 font-bold'>
+        <a href='/' class='flex items-center gap-2 pl-3'>
+          <img src={logoStar.src} alt='logo' width='26' />
+          {author.nickname}
+        </a>
+      </div>
+      <a href='#' class='flex md:hidden' id='menu-open'>
+        <i class='ri-menu-2-line text-2xl'></i>
+      </a>
+      <ul class='hidden md:flex'>
+        {
+          links.map(item => (
+            <li class='border-l-2 border-black p-3 py-4'>
+              <a
+                href={item.path}
+                target={item.target}
+                class='relative flex items-center whitespace-nowrap before:absolute before:bottom-1 before:left-0 before:h-[8px] before:w-0 before:bg-[var(--yellow)] before:transition-all before:duration-300 hover:before:w-full'
+              >
+                <span class='relative z-5'>
+                  {item.name} {pathname == item.path ? '//' : ''}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div
+  class='fixed top-0 left-0 z-20 block h-full w-full -translate-x-[100%] bg-white p-3 transition-all duration-300 md:hidden'
+  id='menu-content'
+>
+  <div class='flex p-6'>
+    <h3 class='flex-1 font-bold uppercase'>Menu</h3>
+    <a href='#' id='menu-close'>
+      <i class='ri-close-line text-3xl'></i>
+    </a>
+  </div>
+  <ul class='flex flex-col items-center justify-center gap-4 md:hidden'>
+    {
+      links.map(item => (
+        <li class='py-3'>
+          <a href={item.path} target={item.target} class='p-3 text-2xl font-bold whitespace-nowrap'>
+            {item.name} {pathname == item.path ? '//' : ''}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const menuContent = document.querySelector('#menu-content')
+    const menuOpen = document.querySelector('#menu-open')
+    const menuClose = document.querySelector('#menu-close')
+
+    menuOpen?.addEventListener('click', e => {
+      e.preventDefault()
+      menuContent?.classList.remove('-translate-x-[100%]')
+    })
+
+    menuClose?.addEventListener('click', e => {
+      e.preventDefault()
+      menuContent?.classList.add('-translate-x-[100%]')
+    })
+
+    menuContent?.querySelectorAll('li a').forEach(item => {
+      item.addEventListener('click', e => {
+        menuContent?.classList.add('-translate-x-[100%]')
+      })
+    })
+  })
+</script>
