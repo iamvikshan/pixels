@@ -3,16 +3,26 @@ import '../../styles/global.css'
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
-import { portfolioProjects } from '../../data/portfolio'
+import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
-  return portfolioProjects.map(project => ({
-    params: { slug: project.slug },
-    props: { project }
+  const portfolioEntries = await getCollection('portfolio')
+  return portfolioEntries.map(entry => ({
+    params: { slug: entry.id.replace(/\.mdx?$/, '') },
+    props: { entry }
   }))
 }
 
-const { project } = Astro.props
+const { entry } = Astro.props
+const { Content } = await entry.render()
+const project = entry.data
+
+// Format date
+const formattedDate = project.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+})
 ---
 
 <Layout
@@ -27,7 +37,7 @@ const { project } = Astro.props
       <!-- Back Button -->
       <div class='mb-8'>
         <a
-          href='/#work'
+          href='/portfolio'
           class='inline-flex items-center gap-2 border-2 border-black bg-white px-4 py-2 transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
         >
           <i class='ri-arrow-left-line'></i>
@@ -41,7 +51,14 @@ const { project } = Astro.props
           <span class='bg-yellow border-2 border-black px-3 py-1 text-sm font-bold text-black'>
             {project.category}
           </span>
-          <span class='text-gray-600'>{project.date}</span>
+          {
+            project.featured && (
+              <span class='border-2 border-black bg-white px-3 py-1 text-sm font-bold text-black'>
+                FEATURED
+              </span>
+            )
+          }
+          <span class='text-gray-600'>{formattedDate}</span>
         </div>
 
         <h1 class='mb-4 text-5xl font-bold'>{project.title}</h1>
@@ -57,7 +74,10 @@ const { project } = Astro.props
           </div>
         </div>
 
-        <p class='max-w-3xl text-xl text-gray-700'>{project.fullDescription}</p>
+        <!-- Full description from markdown content -->
+        <div class='prose prose-lg max-w-3xl text-gray-700'>
+          <Content />
+        </div>
       </div>
 
       <!-- Services Provided -->
@@ -130,7 +150,7 @@ const { project } = Astro.props
             Book a Session
           </a>
           <a
-            href='/#work'
+            href='/portfolio'
             class='inline-block border-3 border-black bg-white px-8 py-3 font-bold text-black transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
           >
             View More Projects

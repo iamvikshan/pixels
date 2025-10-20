@@ -12,7 +12,8 @@
         "oven.bun-vscode",
         "christian-kohler.npm-intellisense",
         "astro-build.astro-vscode",
-        "jock.svg"
+        "jock.svg",
+        "unifiedjs.vscode-mdx"
       ]
     }
   },

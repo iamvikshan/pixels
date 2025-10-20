@@ -1,13 +1,28 @@
 ---
-import { Image } from 'astro:assets'
 import Bars from './Bars.astro'
-import { portfolioProjects } from '../data/portfolio'
+import { getCollection } from 'astro:content'
 
 import svgUnderline from '../assets/underline.svg'
 import arrowCard from '../assets/arrow-card.svg'
 
-// Get unique categories from portfolio
-const categories = ['All', ...new Set(portfolioProjects.map(p => p.category))]
+// Get portfolio items - show pinned ones first, then latest, limit to 4
+const allPortfolios = await getCollection('portfolio')
+
+// Sort: pinned to homepage first, then by date (newest first)
+const sortedPortfolios = allPortfolios.sort((a, b) => {
+  // Pinned items come first
+  if (a.data.pinnedToHomepage && !b.data.pinnedToHomepage) return -1
+  if (!a.data.pinnedToHomepage && b.data.pinnedToHomepage) return 1
+
+  // Then sort by date
+  return b.data.date.getTime() - a.data.date.getTime()
+})
+
+// Take only first 4 for homepage
+const portfolioProjects = sortedPortfolios.slice(0, 4)
+
+// Get unique categories from all portfolios (for future use)
+const categories = ['All', ...new Set(allPortfolios.map(p => p.data.category))]
 ---
 
 <section class='space-y-10 px-5 py-25' id='work'>
@@ -16,107 +31,45 @@ const categories = ['All', ...new Set(portfolioProjects.map(p => p.category))]
     <img src={svgUnderline.src} alt='arrow' width='140' class='absolute -bottom-1 left-50' />
   </div>
 
-  <!-- Category Filter Buttons -->
-  <div class='mx-auto max-w-3xl'>
-    <div class='mb-8 flex flex-wrap justify-center gap-3' id='categoryFilters'>
-      {
-        categories.map(category => (
-          <button
-            data-category={category}
-            class={`filter-btn border-2 border-black px-6 py-3 font-bold transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)] ${
-              category === 'All'
-                ? 'bg-yellow text-black shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
-                : 'bg-white text-black'
-            } `}
-          >
-            {category}
-          </button>
-        ))
-      }
-    </div>
-  </div>
-
-  <div class='mx-auto grid max-w-3xl grid-cols-1 gap-10 md:grid-cols-2' id='portfolioGrid'>
+  <div class='mx-auto grid max-w-3xl grid-cols-1 gap-10 md:grid-cols-2'>
     {
       portfolioProjects.map(project => (
         <a
-          href={`/portfolio/${project.slug}`}
-          data-category={project.category}
-          class='portfolio-item group relative flex flex-col bg-white p-5 transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
+          href={`/portfolio/${project.id.replace(/\.mdx?$/, '')}`}
+          class='group relative flex flex-col bg-white p-5 transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
         >
           <div class='h-[200px] w-full overflow-hidden border-2'>
             <img
-              src={project.coverImage}
-              alt={project.title}
+              src={project.data.coverImage}
+              alt={project.data.title}
               loading='lazy'
               class='h-full w-full object-cover'
             />
           </div>
           <div class='space-y-1 pt-4'>
             <div class='flex pr-2'>
-              <h2 class='flex-1 text-xl font-medium'>{project.title}</h2>
+              <h2 class='flex-1 text-xl font-medium'>{project.data.title}</h2>
               <img src={arrowCard.src} alt='arrow' width='25' />
             </div>
             <p class='mb-2 text-sm text-gray-600'>
-              {project.category} • {project.client}
+              {project.data.category} • {project.data.client}
             </p>
-            <p class='mr-20'>{project.shortDescription}</p>
+            <p class='mr-20'>{project.data.shortDescription}</p>
           </div>
           <Bars />
         </a>
       ))
     }
   </div>
+
+  <!-- View All Portfolio Button -->
+  <div class='mx-auto flex max-w-3xl justify-center pt-5'>
+    <a
+      href='/portfolio'
+      class='bg-yellow border-2 border-black px-8 py-4 text-lg font-bold transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
+    >
+      View All Portfolio
+      <i class='ri-arrow-right-line ml-2'></i>
+    </a>
+  </div>
 </section>
-
-<script>
-  // Portfolio filtering functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-btn')
-    const portfolioItems = document.querySelectorAll<HTMLAnchorElement>('.portfolio-item')
-
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const selectedCategory = button.getAttribute('data-category')
-
-        // Update active button styles
-        filterButtons.forEach(btn => {
-          if (btn === button) {
-            btn.classList.add('bg-yellow', 'shadow-[4px_4px_0px_rgba(0,0,0,0.3)]')
-            btn.classList.remove('bg-white')
-          } else {
-            btn.classList.remove('bg-yellow', 'shadow-[4px_4px_0px_rgba(0,0,0,0.3)]')
-            btn.classList.add('bg-white')
-          }
-        })
-
-        // Filter portfolio items with smooth animation
-        portfolioItems.forEach((item, index) => {
-          const itemCategory = item.getAttribute('data-category')
-
-          if (selectedCategory === 'All' || itemCategory === selectedCategory) {
-            // Show item with staggered fade-in
-            item.style.display = 'flex'
-            item.style.opacity = '0'
-            item.style.transform = 'translateY(20px)'
-
-            setTimeout(() => {
-              item.style.transition = 'opacity 0.4s ease, transform 0.4s ease'
-              item.style.opacity = '1'
-              item.style.transform = 'translateY(0)'
-            }, index * 100) // Stagger animation
-          } else {
-            // Hide item with fade-out
-            item.style.transition = 'opacity 0.3s ease, transform 0.3s ease'
-            item.style.opacity = '0'
-            item.style.transform = 'translateY(-10px)'
-
-            setTimeout(() => {
-              item.style.display = 'none'
-            }, 300)
-          }
-        })
-      })
-    })
-  })
-</script>

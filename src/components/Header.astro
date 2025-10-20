@@ -5,7 +5,7 @@ import { author, buy } from '../config'
 
 const links = [
   { name: 'Home', path: '/', target: '_self' },
-  { name: 'Portfolio', path: '/#work', target: '_self' },
+  { name: 'Portfolio', path: '/portfolio', target: '_self' },
   { name: 'Blog', path: '/blog/', target: '_self' },
   { name: 'Contact', path: '/contact', target: '_self' },
   { name: 'Book Now', path: '/booking', target: '_self' }
@@ -52,7 +52,7 @@ const { pathname } = Astro.url
                 class='relative flex items-center whitespace-nowrap before:absolute before:bottom-1 before:left-0 before:h-[8px] before:w-0 before:bg-[var(--yellow)] before:transition-all before:duration-300 hover:before:w-full'
               >
                 <span class='relative z-5'>
-                  {item.name} {pathname == item.path ? '//' : ''}
+                  {item.name} {pathname == item.path ? '<3' : ''}
                 </span>
               </a>
             </li>
@@ -78,7 +78,7 @@ const { pathname } = Astro.url
       links.map(item => (
         <li class='py-3'>
           <a href={item.path} target={item.target} class='p-3 text-2xl font-bold whitespace-nowrap'>
-            {item.name} {pathname == item.path ? '//' : ''}
+            {item.name} {pathname == item.path ? '<3' : ''}
           </a>
         </li>
       ))

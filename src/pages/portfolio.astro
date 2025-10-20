@@ -1,0 +1,238 @@
+---
+import '../styles/global.css'
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import Bars from '../components/Bars.astro'
+import { getCollection } from 'astro:content'
+
+import arrowCard from '../assets/arrow-card.svg'
+
+// Get all portfolio items
+const allPortfolios = await getCollection('portfolio')
+
+// Sort by date (newest first)
+const portfolios = allPortfolios.sort((a, b) => {
+  return b.data.date.getTime() - a.data.date.getTime()
+})
+
+// Get unique categories and years for filters
+const categories = ['All', ...new Set(portfolios.map(p => p.data.category))]
+const years = [...new Set(portfolios.map(p => p.data.date.getFullYear()))].sort((a, b) => b - a)
+---
+
+<Layout
+  title='Portfolio | Vikshan Pixels'
+  description='Browse my complete portfolio of photography and videography projects including weddings, corporate events, portraits, and commercial work.'
+>
+  <Header />
+
+  <main class='px-3 py-20'>
+    <div class='mx-auto max-w-6xl'>
+      <!-- Page Header -->
+      <div class='mb-10 text-center'>
+        <h1 class='mb-4 text-5xl font-bold'>Complete Portfolio</h1>
+        <p class='text-xl text-gray-700'>Explore all my photography and videography projects</p>
+      </div>
+
+      <!-- Filters Section -->
+      <div class='mb-10 border-2 border-black bg-white p-6'>
+        <div class='mb-6 flex flex-wrap items-center justify-between gap-4'>
+          <!-- Category Filter -->
+          <div class='flex-1'>
+            <label for='categoryFilter' class='mb-2 block font-bold'>Filter by Category:</label>
+            <select
+              id='categoryFilter'
+              class='w-full border-2 border-black px-4 py-2 font-medium transition-all hover:shadow-[2px_2px_0px_rgba(0,0,0,0.3)]'
+            >
+              {categories.map(category => <option value={category}>{category}</option>)}
+            </select>
+          </div>
+
+          <!-- Year Filter -->
+          <div class='flex-1'>
+            <label for='yearFilter' class='mb-2 block font-bold'>Filter by Year:</label>
+            <select
+              id='yearFilter'
+              class='w-full border-2 border-black px-4 py-2 font-medium transition-all hover:shadow-[2px_2px_0px_rgba(0,0,0,0.3)]'
+            >
+              <option value='All'>All Years</option>
+              {years.map(year => <option value={year}>{year}</option>)}
+            </select>
+          </div>
+
+          <!-- Sort Options -->
+          <div class='flex-1'>
+            <label for='sortFilter' class='mb-2 block font-bold'>Sort by:</label>
+            <select
+              id='sortFilter'
+              class='w-full border-2 border-black px-4 py-2 font-medium transition-all hover:shadow-[2px_2px_0px_rgba(0,0,0,0.3)]'
+            >
+              <option value='date-desc'>Date (Newest First)</option>
+              <option value='date-asc'>Date (Oldest First)</option>
+              <option value='title-asc'>Title (A-Z)</option>
+              <option value='title-desc'>Title (Z-A)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class='border-t-2 border-black pt-4'>
+          <p class='font-medium'>
+            Showing <span id='resultCount'>{portfolios.length}</span> of {portfolios.length} projects
+          </p>
+        </div>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div id='portfolioGrid' class='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+        {
+          portfolios.map(project => {
+            const formattedDate = project.data.date.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })
+            const year = project.data.date.getFullYear()
+
+            return (
+              <a
+                href={`/portfolio/${project.id.replace(/\.mdx?$/, '')}`}
+                data-category={project.data.category}
+                data-year={year}
+                data-title={project.data.title}
+                data-date={project.data.date.getTime()}
+                class='portfolio-item group relative flex flex-col bg-white p-5 transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
+              >
+                <div class='h-[250px] w-full overflow-hidden border-2'>
+                  <img
+                    src={project.data.coverImage}
+                    alt={project.data.title}
+                    loading='lazy'
+                    class='h-full w-full object-cover transition-transform duration-300 group-hover:scale-105'
+                  />
+                </div>
+                <div class='space-y-2 pt-4'>
+                  <div class='flex items-start justify-between gap-2'>
+                    <div class='flex-1'>
+                      <div class='mb-1 flex items-center gap-2'>
+                        <span class='bg-yellow border-2 border-black px-2 py-1 text-xs font-bold'>
+                          {project.data.category}
+                        </span>
+                        {project.data.featured && (
+                          <span class='border-2 border-black bg-white px-2 py-1 text-xs font-bold'>
+                            FEATURED
+                          </span>
+                        )}
+                      </div>
+                      <h2 class='text-xl font-medium'>{project.data.title}</h2>
+                    </div>
+                    <img src={arrowCard.src} alt='arrow' width='25' class='mt-1' />
+                  </div>
+                  <p class='text-sm text-gray-600'>
+                    {project.data.client} • {formattedDate}
+                  </p>
+                  <p class='line-clamp-2'>{project.data.shortDescription}</p>
+                </div>
+                <Bars />
+              </a>
+            )
+          })
+        }
+      </div>
+
+      <!-- No Results Message -->
+      <div id='noResults' class='hidden py-20 text-center'>
+        <div class='border-2 border-black bg-white p-10'>
+          <i class='ri-folder-open-line mb-4 text-6xl text-gray-400'></i>
+          <h3 class='mb-2 text-2xl font-bold'>No projects found</h3>
+          <p class='text-gray-600'>Try adjusting your filters to see more results.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Portfolio filtering and sorting functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryFilter = document.getElementById('categoryFilter') as HTMLSelectElement
+    const yearFilter = document.getElementById('yearFilter') as HTMLSelectElement
+    const sortFilter = document.getElementById('sortFilter') as HTMLSelectElement
+    const portfolioGrid = document.getElementById('portfolioGrid') as HTMLDivElement
+    const portfolioItems = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>('.portfolio-item')
+    )
+    const resultCount = document.getElementById('resultCount') as HTMLSpanElement
+    const noResults = document.getElementById('noResults') as HTMLDivElement
+
+    function filterAndSort() {
+      const selectedCategory = categoryFilter.value
+      const selectedYear = yearFilter.value
+      const selectedSort = sortFilter.value
+
+      // Filter items
+      let visibleItems = portfolioItems.filter(item => {
+        const categoryMatch =
+          selectedCategory === 'All' || item.dataset.category === selectedCategory
+        const yearMatch = selectedYear === 'All' || item.dataset.year === selectedYear
+
+        return categoryMatch && yearMatch
+      })
+
+      // Sort items
+      visibleItems.sort((a, b) => {
+        switch (selectedSort) {
+          case 'date-desc':
+            return parseInt(b.dataset.date || '0') - parseInt(a.dataset.date || '0')
+          case 'date-asc':
+            return parseInt(a.dataset.date || '0') - parseInt(b.dataset.date || '0')
+          case 'title-asc':
+            return (a.dataset.title || '').localeCompare(b.dataset.title || '')
+          case 'title-desc':
+            return (b.dataset.title || '').localeCompare(a.dataset.title || '')
+          default:
+            return 0
+        }
+      })
+
+      // Hide all items first
+      portfolioItems.forEach(item => {
+        item.style.display = 'none'
+      })
+
+      // Show and reorder filtered items
+      if (visibleItems.length > 0) {
+        visibleItems.forEach((item, index) => {
+          item.style.display = 'flex'
+          portfolioGrid.appendChild(item) // Reorder in DOM
+
+          // Animate in
+          item.style.opacity = '0'
+          item.style.transform = 'translateY(20px)'
+          setTimeout(() => {
+            item.style.transition = 'opacity 0.4s ease, transform 0.4s ease'
+            item.style.opacity = '1'
+            item.style.transform = 'translateY(0)'
+          }, index * 50)
+        })
+
+        noResults.classList.add('hidden')
+        portfolioGrid.classList.remove('hidden')
+      } else {
+        noResults.classList.remove('hidden')
+        portfolioGrid.classList.add('hidden')
+      }
+
+      // Update result count
+      resultCount.textContent = visibleItems.length.toString()
+    }
+
+    // Add event listeners
+    categoryFilter.addEventListener('change', filterAndSort)
+    yearFilter.addEventListener('change', filterAndSort)
+    sortFilter.addEventListener('change', filterAndSort)
+  })
+</script>
