@@ -1,0 +1,11 @@
+# Wrangler configuration for Cloudflare Pages
+# This is optional but helps with session management
+
+name = "pixels"
+compatibility_date = "2025-01-23"
+
+# KV namespace for sessions (optional)
+# Uncomment if you want to use Cloudflare KV for session storage
+# [[kv_namespaces]]
+# binding = "SESSION"
+# id = "your_kv_namespace_id_here"
