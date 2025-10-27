@@ -5,11 +5,14 @@
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
     "start": "astro dev",
-    "build": "tinacms build && astro check && astro build",
-    "build:local": "astro check && astro build",
+    "build": "tinacms build && astro build",
+    "build:prod": "bun install && bun run build",
+    "build:local": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "f": "prettier -w ."
+    "f": "prettier -w .",
+    "check": "astro check",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.10",
@@ -30,6 +33,7 @@
     "tinacms": "^2.9.0"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.1"

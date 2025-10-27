@@ -20,9 +20,6 @@ const sortedPortfolios = allPortfolios.sort((a, b) => {
 
 // Take only first 4 for homepage
 const portfolioProjects = sortedPortfolios.slice(0, 4)
-
-// Get unique categories from all portfolios (for future use)
-const categories = ['All', ...new Set(allPortfolios.map(p => p.data.category))]
 ---
 
 <section class='space-y-10 px-5 py-25' id='work'>

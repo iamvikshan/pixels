@@ -204,7 +204,7 @@ const formattedDate = project.date.toLocaleDateString('en-US', {
   }
 </style>
 
-<script define:vars={{ gallery: project.gallery }}>
+<script define:vars={{ gallery: project.gallery }} is:inline>
   const lightbox = document.getElementById('lightbox')
   const lightboxImage = document.getElementById('lightboxImage')
   const imageCounter = document.getElementById('imageCounter')
