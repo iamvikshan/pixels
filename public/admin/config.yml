@@ -4,28 +4,14 @@
 backend:
   name: github
   repo: iamvikshan/pixels
-  branch: sveltia # Using sveltia branch for testing
-  # Using Netlify's OAuth gateway (works with any host including Cloudflare Pages)
-  base_url: https://api.netlify.com
+  branch: sveltia
+  # Using self-hosted Cloudflare Workers auth
+  base_url: https://sveltia-cms-auth.vixshan.workers.dev
   auth_endpoint: auth
 
 # Enable local backend for development/testing in Codespaces
 # This allows you to test the CMS without GitHub OAuth locally
 local_backend: true
-
-# GitHub OAuth App Configuration
-# Your GitHub OAuth app should have:
-# - Authorization callback URL: https://api.netlify.com/auth/done
-#
-# The OAuth flow works like this:
-# 1. User clicks login in Sveltia admin
-# 2. Redirects to GitHub for authorization
-# 3. GitHub redirects to Netlify OAuth gateway
-# 4. Netlify gateway handles the OAuth dance
-# 5. User is logged in to Sveltia
-
-# Note: Netlify's OAuth gateway is free and works with any hosting provider
-# No need to deploy OAuth server yourself!
 
 # Media files configuration
 media_folder: "public/images/uploads"
