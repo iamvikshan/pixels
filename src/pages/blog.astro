@@ -2,10 +2,14 @@
 export const prerender = true
 import '../styles/global.css'
 import Layout from '../layouts/Layout.astro'
+import { getCollection } from 'astro:content'
 
 import AppHeader from '../components/Header.astro'
 import AppFooter from '../components/Footer.astro'
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }))
+
+const allPosts = await getCollection('blog')
+// Sort by pubDate, newest first
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
 ---
 
 <Layout
@@ -21,19 +25,23 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
       </div>
       <div class='p-3'>
         {
-          allPosts.map(({ url, frontmatter, rawContent }: any) => (
+          sortedPosts.map(post => (
             <a
-              href={url}
+              href={`/blog/${post.slug}`}
               class='mb-5 flex items-center gap-3 border-2 bg-white p-5 transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
             >
               <div>
                 <div class='h-[130px] w-[200px] overflow-hidden border-2'>
-                  <img src={frontmatter?.image?.url} alt='' class='h-full w-full object-cover' />
+                  <img
+                    src={post.data.image.url}
+                    alt={post.data.image.alt}
+                    class='h-full w-full object-cover'
+                  />
                 </div>
               </div>
               <div class='flex flex-col gap-2'>
-                <h1 class='line-clamp-2 text-xl font-bold'>{frontmatter.title}</h1>
-                <div class='line-clamp-2' set:html={rawContent} />
+                <h1 class='line-clamp-2 text-xl font-bold'>{post.data.title}</h1>
+                <div class='line-clamp-2'>{post.body?.substring(0, 200)}...</div>
               </div>
             </a>
           ))

@@ -25,6 +25,26 @@ const portfolioCollection = defineCollection({
   })
 })
 
+const blogCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    author: z.object({
+      name: z.string(),
+      url: z.string().url().optional()
+    }),
+    image: z.object({
+      url: z.string().url(),
+      alt: z.string()
+    }),
+    tags: z.array(z.string()).default([]),
+    pubDate: z.date(),
+    likes: z.string().optional(),
+    comments: z.string().optional()
+  })
+})
+
 export const collections = {
-  portfolio: portfolioCollection
+  portfolio: portfolioCollection,
+  blog: blogCollection
 }

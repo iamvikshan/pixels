@@ -1,0 +1,195 @@
+---
+export const prerender = true
+import '../../styles/global.css'
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+import Footer from '../../components/Footer.astro'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog')
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+const post = entry.data
+
+// Format date
+const formattedDate = post.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+})
+---
+
+<Layout
+  title={`${post.title} | Blog | Vikshan Pixels`}
+  description={post.title}
+  image={post.image.url}
+>
+  <Header />
+
+  <article class='px-3 py-20'>
+    <div class='mx-auto max-w-4xl'>
+      <!-- Back Button -->
+      <div class='mb-8'>
+        <a
+          href='/blog'
+          class='inline-flex items-center gap-2 border-2 border-black bg-white px-4 py-2 transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]'
+        >
+          <i class='ri-arrow-left-line'></i>
+          Back to Blog
+        </a>
+      </div>
+
+      <!-- Post Header -->
+      <div class='mb-10'>
+        <!-- Featured Image -->
+        <div class='mb-8 overflow-hidden border-2 border-black'>
+          <img src={post.image.url} alt={post.image.alt} class='h-auto w-full object-cover' />
+        </div>
+
+        <h1 class='mb-6 text-5xl font-bold'>{post.title}</h1>
+
+        <!-- Author & Meta Info -->
+        <div class='mb-6 flex flex-wrap items-center gap-6'>
+          {
+            post.author.url && (
+              <div class='flex items-center gap-3'>
+                <img
+                  src={post.author.url}
+                  alt={post.author.name}
+                  class='h-12 w-12 rounded-full border-2 border-black object-cover'
+                />
+                <div>
+                  <div class='font-bold'>{post.author.name}</div>
+                  <div class='text-sm text-gray-600'>{formattedDate}</div>
+                </div>
+              </div>
+            )
+          }
+          {
+            !post.author.url && (
+              <div>
+                <div class='font-bold'>{post.author.name}</div>
+                <div class='text-sm text-gray-600'>{formattedDate}</div>
+              </div>
+            )
+          }
+
+          {
+            post.likes && (
+              <div class='flex items-center gap-2'>
+                <i class='ri-heart-fill text-red-500' />
+                <span class='font-medium'>{post.likes}</span>
+              </div>
+            )
+          }
+
+          {
+            post.comments && (
+              <div class='flex items-center gap-2'>
+                <i class='ri-chat-3-fill text-blue-500' />
+                <span class='font-medium'>{post.comments}</span>
+              </div>
+            )
+          }
+        </div>
+
+        <!-- Tags -->
+        {
+          post.tags && post.tags.length > 0 && (
+            <div class='mb-8 flex flex-wrap gap-2'>
+              {post.tags.map((tag: string) => (
+                <span class='bg-yellow border-2 border-black px-3 py-1 text-sm font-bold'>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Post Content -->
+      <div class='blog-content mx-auto max-w-3xl'>
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Blog content styling */
+  .blog-content {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #1f2937;
+  }
+
+  .blog-content :global(h2) {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.5rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+  }
+
+  .blog-content :global(h3) {
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .blog-content :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .blog-content :global(ul),
+  .blog-content :global(ol) {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .blog-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-content :global(strong) {
+    font-weight: 700;
+    color: #000;
+  }
+
+  .blog-content :global(a) {
+    font-weight: 500;
+    color: #000;
+    border-bottom: 2px solid #fde047;
+    transition: all 0.2s;
+  }
+
+  .blog-content :global(a:hover) {
+    background-color: #fde047;
+  }
+
+  .blog-content :global(code) {
+    border-radius: 0.25rem;
+    border: 1px solid #d1d5db;
+    background-color: #f3f4f6;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .blog-content :global(blockquote) {
+    border-left: 4px solid #fde047;
+    background-color: #f9fafb;
+    padding: 1rem;
+    font-style: italic;
+  }
+</style>
