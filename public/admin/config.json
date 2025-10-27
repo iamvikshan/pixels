@@ -1,0 +1,5 @@
+{
+  "backend": "github",
+  "client_id": "Ov23licrwQSnbtNILt3u",
+  "redirect_uri": "https://api.netlify.com/auth/done"
+}

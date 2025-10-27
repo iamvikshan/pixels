@@ -25,7 +25,5 @@ pnpm-debug.log*
 .idea/
 *lock
 
-# TinaCMS
-.tina/__generated__
-tina/__generated__
-public/admin
+# Sveltia CMS
+# Nothing to ignore - admin interface is static files

@@ -1,0 +1,137 @@
+# Sveltia CMS Configuration for Pixels Photography Portfolio
+# https://github.com/sveltia/sveltia-cms
+
+backend:
+  name: github
+  repo: iamvikshan/pixels
+  branch: sveltia # Using sveltia branch for testing
+  # Using Netlify's OAuth gateway (works with any host including Cloudflare Pages)
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# GitHub OAuth App Configuration
+# Your GitHub OAuth app should have:
+# - Client ID: Ov23licrwQSnbtNILt3u
+# - Authorization callback URL: https://api.netlify.com/auth/done
+#
+# The OAuth flow works like this:
+# 1. User clicks login in Sveltia admin
+# 2. Redirects to GitHub for authorization
+# 3. GitHub redirects to Netlify OAuth gateway
+# 4. Netlify gateway handles the OAuth dance
+# 5. User is logged in to Sveltia
+
+# Note: Netlify's OAuth gateway is free and works with any hosting provider
+# No need to deploy OAuth server yourself!
+
+# Media files configuration
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+# Optional: Use Cloudflare Images or other image CDN
+# media_library:
+#   name: cloudinary
+#   config:
+#     cloud_name: your_cloud_name
+#     api_key: your_api_key
+
+# Publish mode - editorial workflow enables draft/review/publish
+publish_mode: editorial_workflow
+
+# Collections
+collections:
+  # Blog Posts Collection
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - label: "Author"
+        name: "author"
+        widget: "object"
+        fields:
+          - { label: "Name", name: "name", widget: "string", required: true }
+          - { label: "URL", name: "url", widget: "string", required: false, hint: "Author photo URL" }
+      - label: "Featured Image"
+        name: "image"
+        widget: "object"
+        fields:
+          - { label: "URL", name: "url", widget: "string", required: true }
+          - { label: "Alt Text", name: "alt", widget: "string", required: true }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        default: []
+        allow_add: true
+        hint: "Add relevant tags for categorization"
+      - { label: "Publish Date", name: "pubDate", widget: "datetime", required: true }
+      - { label: "Likes", name: "likes", widget: "string", required: false, hint: "e.g., 2.4k" }
+      - { label: "Comments", name: "comments", widget: "string", required: false, hint: "e.g., 87" }
+      - { label: "Body", name: "body", widget: "markdown", required: true, hint: "Main blog content" }
+
+  # Portfolio Collection
+  - name: "portfolio"
+    label: "Portfolio"
+    folder: "src/content/portfolio"
+    create: true
+    slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Wedding", value: "Wedding" }
+          - { label: "Corporate Event", value: "Corporate Event" }
+          - { label: "Portrait", value: "Portrait" }
+          - { label: "Commercial", value: "Commercial" }
+        required: true
+      - { label: "Client", name: "client", widget: "string", required: true }
+      - { label: "Date", name: "date", widget: "datetime", required: true }
+      - { label: "Cover Image URL", name: "coverImage", widget: "string", required: true, hint: "Main portfolio image URL" }
+      - { label: "Short Description", name: "shortDescription", widget: "text", required: true }
+      - label: "Services"
+        name: "services"
+        widget: "list"
+        default: []
+        allow_add: true
+        hint: "Services provided for this project"
+      - { label: "Duration", name: "duration", widget: "string", required: true, hint: "e.g., 4 Hours, Full Day" }
+      - label: "Gallery Images"
+        name: "gallery"
+        widget: "list"
+        default: []
+        allow_add: true
+        hint: "Add URLs for gallery images"
+      - { label: "Video URL", name: "videoUrl", widget: "string", required: false }
+      - label: "Testimonial"
+        name: "testimonial"
+        widget: "object"
+        fields:
+          - { label: "Quote", name: "text", widget: "text", required: true }
+          - { label: "Author", name: "author", widget: "string", required: true }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "Show in featured section" }
+      - { label: "Pinned to Homepage", name: "pinnedToHomepage", widget: "boolean", default: false }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        default: []
+        required: false
+        allow_add: true
+      - { label: "Body", name: "body", widget: "markdown", required: true, hint: "Detailed project description" }
+
+# Site URL for preview and editorial workflow
+site_url: https://pixels.vikshan.me
+display_url: https://pixels.vikshan.me
+# Logo in the admin panel (optional)
+# logo_url: /images/logo.png
