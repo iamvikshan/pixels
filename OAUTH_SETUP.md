@@ -9,11 +9,13 @@ Your Sveltia CMS is now configured with GitHub OAuth authentication.
 ## 🔐 What's Been Set Up
 
 ### 1. GitHub OAuth App
+
 - **Client ID:** `Ov23licrwQSnbtNILt3u`
 - **Client Secret:** `f81bf2f19721c79416df10cb0526e0bb0c4741cb`
 - **Callback URL:** Should be `https://api.netlify.com/auth/done`
 
 ### 2. Sveltia Configuration
+
 - **Config file:** `public/admin/config.yml`
 - **OAuth config:** `public/admin/config.json`
 - **Repository:** `iamvikshan/pixels`
@@ -21,6 +23,7 @@ Your Sveltia CMS is now configured with GitHub OAuth authentication.
 - **Site URL:** `https://pixels.vikshan.me`
 
 ### 3. OAuth Flow
+
 ```
 User → Sveltia Admin → GitHub OAuth → Netlify Gateway → Authenticated
 ```
@@ -34,6 +37,7 @@ User → Sveltia Admin → GitHub OAuth → Netlify Gateway → Authenticated
 Go to: https://github.com/settings/developers
 
 Make sure your OAuth app has:
+
 - ✅ **Homepage URL:** `https://pixels.vikshan.me`
 - ✅ **Authorization callback URL:** `https://api.netlify.com/auth/done`
 
@@ -53,6 +57,7 @@ Even though you're on Cloudflare Pages, you need to register with Netlify's OAut
 **Option B: Self-host OAuth (Advanced)**
 
 If you prefer not to use Netlify's service, you can:
+
 - Deploy your own OAuth server
 - Use GitHub App instead of OAuth App
 - Set up Cloudflare Workers for OAuth
@@ -99,14 +104,17 @@ You should see the Sveltia CMS login screen.
 ### Troubleshooting:
 
 **Error: "Failed to load config"**
+
 - Check that `config.yml` is accessible at `/admin/config.yml`
 - Verify the file is valid YAML
 
 **Error: "OAuth failed" or "Redirect mismatch"**
+
 - Verify callback URL in GitHub is `https://api.netlify.com/auth/done`
 - Check that client ID matches in both places
 
 **Error: "Unauthorized"**
+
 - Make sure you're a collaborator on the repository
 - Check that the OAuth app has access to the repo
 
@@ -116,14 +124,17 @@ You should see the Sveltia CMS login screen.
 
 ### Client Secret Location
 
-⚠️ **IMPORTANT:** Your client secret (`f81bf2f19721c79416df10cb0526e0bb0c4741cb`) is currently in this document.
+⚠️ **IMPORTANT:** Your client secret (`f81bf2f19721c79416df10cb0526e0bb0c4741cb`) is currently in
+this document.
 
 **For production:**
+
 1. This secret should NOT be committed to Git
 2. The Netlify OAuth gateway handles it server-side
 3. You don't need to expose it in your frontend code
 
 **Best Practice:**
+
 - Delete this file after setup
 - Or move it to a secure location
 - Regenerate the secret if accidentally exposed
@@ -131,6 +142,7 @@ You should see the Sveltia CMS login screen.
 ### Who Can Access the Admin?
 
 Only users who:
+
 - ✅ Have GitHub access to `iamvikshan/pixels` repo
 - ✅ Are authenticated via your OAuth app
 - ✅ Have write permissions to the repository
@@ -163,6 +175,7 @@ Draft → In Review → Ready → Published
 ### How It Works with Git
 
 Every time you:
+
 - **Save Draft:** Creates a branch `cms/draft-{title}`
 - **Publish:** Creates a commit on your target branch
 - **Edit:** Updates the existing file
@@ -189,7 +202,7 @@ Once testing is successful, update `config.yml`:
 
 ```yaml
 backend:
-  branch: main  # Change from sveltia to main
+  branch: main # Change from sveltia to main
 ```
 
 This will make edits go directly to your production branch.
@@ -205,6 +218,7 @@ Want others to edit content?
 ### 4. Clean Up Tina CMS (Phase 2)
 
 Once you're happy with Sveltia:
+
 - Remove Tina dependencies
 - Delete `tina/` folder
 - Update build scripts
@@ -215,21 +229,25 @@ Once you're happy with Sveltia:
 ## 🆘 Common Issues
 
 ### "Cannot read config.yml"
+
 - File must be at `public/admin/config.yml`
 - Check YAML syntax (use a validator)
 - Ensure it's deployed with your site
 
 ### "OAuth callback mismatch"
+
 - GitHub app callback MUST be `https://api.netlify.com/auth/done`
 - Not your site URL
 - Not GitHub's default
 
 ### "No changes appear in Git"
+
 - Check your Git history: `git log`
 - Look for branches: `git branch -a`
 - Draft posts create branches, not direct commits
 
 ### "Permission denied"
+
 - Ensure you have write access to the repository
 - Check GitHub app permissions
 - Try re-authorizing the app

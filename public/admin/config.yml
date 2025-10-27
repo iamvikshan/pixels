@@ -9,9 +9,12 @@ backend:
   base_url: https://api.netlify.com
   auth_endpoint: auth
 
+# Enable local backend for development/testing in Codespaces
+# This allows you to test the CMS without GitHub OAuth locally
+local_backend: true
+
 # GitHub OAuth App Configuration
 # Your GitHub OAuth app should have:
-# - Client ID: Ov23licrwQSnbtNILt3u
 # - Authorization callback URL: https://api.netlify.com/auth/done
 #
 # The OAuth flow works like this:
