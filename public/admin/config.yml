@@ -13,16 +13,33 @@ backend:
 # This allows you to test the CMS without GitHub OAuth locally
 local_backend: true
 
-# Media files configuration
+# Media files configuration - Default upload location
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
-# Optional: Use Cloudflare Images or other image CDN
-# media_library:
-#   name: cloudinary
-#   config:
-#     cloud_name: your_cloud_name
-#     api_key: your_api_key
+# Multiple media libraries configuration
+# This allows accessing different asset folders in the CMS
+media_libraries:
+  # Default library - for user uploads
+  default:
+    name: "Uploads"
+    folder: "public/images/uploads"
+    public_folder: "/images/uploads"
+
+  # Public assets - static files in public root
+  public_assets:
+    name: "Public Assets"
+    folder: "public"
+    public_folder: "/"
+
+  # Design assets - UI components and graphics
+  design_assets:
+    name: "Design Assets"
+    folder: "src/assets"
+    public_folder: "/_astro"
+
+# Note: External image services (Pexels, Unsplash, etc.) can still be used
+# by entering URLs directly in image fields
 
 # Publish mode - editorial workflow enables draft/review/publish
 publish_mode: editorial_workflow

@@ -26,4 +26,6 @@ pnpm-debug.log*
 *lock
 
 # Sveltia CMS
-# Nothing to ignore - admin interface is static files
+# CMS interface files are committed to repo
+# Uploads folder content is tracked in Git
+.wrangler/

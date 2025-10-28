@@ -3,11 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro devc",
+    "dev": "astro dev",
     "start": "astro dev",
-    "build": "tinacms build && astro build",
+    "build": "astro build",
     "build:prod": "bun install && bun run build",
-    "build:local": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "f": "prettier -w .",
@@ -20,17 +19,11 @@
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/sitemap": "^3.6.0",
     "@tailwindcss/vite": "^4.1.16",
-    "@tinacms/cli": "^1.11.0",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
     "astro": "^5.15.1",
     "astro-seo": "^0.8.4",
     "gsap": "^3.13.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
     "sharp": "^0.34.4",
-    "tailwindcss": "^4.1.16",
-    "tinacms": "^2.9.0"
+    "tailwindcss": "^4.1.16"
   },
   "devDependencies": {
     "husky": "^9.1.7",
