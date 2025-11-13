@@ -22,7 +22,7 @@
     "@tailwindcss/vite": "^4.1.17",
     "@tinacms/cli": "^1.12.2",
     "@types/react": "^19.2.3",
-    "@types/react-dom": "^19.2.2",
+    "@types/react-dom": "^19.2.3",
     "astro": "^5.15.5",
     "astro-seo": "^0.8.4",
     "gsap": "^3.13.0",
