@@ -23,7 +23,7 @@
     "@tinacms/cli": "^1.12.2",
     "@types/react": "^19.2.3",
     "@types/react-dom": "^19.2.2",
-    "astro": "^5.15.5",
+    "astro": "^5.15.6",
     "astro-seo": "^0.8.4",
     "gsap": "^3.13.0",
     "react": "^19.2.0",
