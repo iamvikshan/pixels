@@ -20,7 +20,7 @@
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/sitemap": "^3.6.0",
     "@tailwindcss/vite": "^4.1.17",
-    "@tinacms/cli": "^1.12.5",
+    "@tinacms/cli": "^1.12.6",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.16.3",
