@@ -19,7 +19,7 @@
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/sitemap": "^3.6.0",
-    "@tailwindcss/vite": "^4.1.17",
+    "@tailwindcss/vite": "^4.1.18",
     "@tinacms/cli": "^2.0.3",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
