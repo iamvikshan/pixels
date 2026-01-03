@@ -1,6 +1,6 @@
 {
   "name": "Ubuntu + Bun",
-  "image": "ghcr.io/iamvikshan/devcontainers/ubuntu-bun:latest",
+  "image": "vikshan/ubuntu-bun:latest",
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
@@ -19,7 +19,7 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "bun install && bun run build && bun dev",
+  "postCreateCommand": "bun install && bun dev",
 
   // Set `remoteUser` to `root` to connect as root.
   "remoteUser": "root"
