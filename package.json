@@ -35,7 +35,7 @@
   "devDependencies": {
     "fs-extra": "^11.3.3",
     "husky": "^9.1.7",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.0",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "typescript": "^5.9.3"
