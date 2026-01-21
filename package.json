@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
     "start": "astro dev",
-    "build": "tinacms build && astro build",
+    "build": "tinacms build --skip-cloud-checks --skip-search-index && astro build",
     "build:prod": "bun install && bun run build",
     "build:dev": "astro build",
     "preview": "astro preview",
@@ -23,7 +23,7 @@
     "@tinacms/cli": "^2.1.1",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.16.11",
+    "astro": "^5.16.12",
     "astro-seo": "^1.1.0",
     "gsap": "^3.14.2",
     "react": "^19.2.3",
