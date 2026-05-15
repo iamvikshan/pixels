@@ -1,0 +1,45 @@
+{
+  "project": {
+    "name": "pixels",
+    "description": "Professional photographer portfolio built with Astro 6",
+    "type": "web-app",
+    "framework": "astro@6.3.3"
+  },
+  "stack": {
+    "runtime": "bun",
+    "packageManager": "bun",
+    "language": "typescript",
+    "styling": ["tailwindcss@4.3.0", "css"],
+    "frontend": ["astro@6.3.3", "react@19"],
+    "cms": "tinacms@3.8.1",
+    "deployment": "cloudflare"
+  },
+  "conventions": {
+    "typescript": "strict mode (tsconfig.json enforced)",
+    "formatting": "prettier@3.8.3 with astro + tailwind plugins, 100 char line width",
+    "git": "husky@9.1.7 with pre-commit hooks",
+    "naming": "kebab-case for files, PascalCase for components",
+    "content": {
+      "format": "MDX with YAML frontmatter",
+      "location": "src/content/[collection]/",
+      "collections": ["portfolio", "blog"],
+      "validation": "zod schemas in src/content/config.ts"
+    }
+  },
+  "build": {
+    "dev": "bun run dev",
+    "build": "bun run build",
+    "lint": "bun run check",
+    "format": "bun run f"
+  },
+  "linting": {
+    "eslint": "configured in package.json (config file missing)",
+    "prettier": ".prettierrc + .prettierignore",
+    "typescript": "tsc type checking"
+  },
+  "integrations": {
+    "astro": ["@astrojs/mdx", "@astrojs/cloudflare", "@astrojs/sitemap", "@astrojs/partytown"],
+    "dependencies": ["tinacms", "gsap", "sharp"]
+  },
+  "notes": "Content collections migrated to Astro v6 format with glob() loaders. ESLint config verification recommended."
+}

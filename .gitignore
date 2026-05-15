@@ -30,3 +30,6 @@ tina/__generated__
 public/admin
 
 .vscode/
+scripts/bootstrap.sh
+scripts/hooks/
+.wrangler/

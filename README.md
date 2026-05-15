@@ -1,6 +1,5 @@
 # Vikshan Pixels
 
-[![Deploy](https://github.com/iamvikshan/pixels/actions/workflows/deploy.yml/badge.svg)](https://github.com/iamvikshan/pixels/actions/workflows/deploy.yml)
 [![CLA Assistant](https://github.com/iamvikshan/pixels/actions/workflows/cla.yml/badge.svg)](https://github.com/iamvikshan/pixels/actions/workflows/cla.yml)
 [![wakatime](https://wakatime.com/badge/github/iamvikshan/pixels.svg)](https://wakatime.com/badge/github/iamvikshan/pixels)
 
