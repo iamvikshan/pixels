@@ -4,8 +4,7 @@
     "config:recommended",
     ":dependencyDashboard",
     ":semanticCommits",
-    "schedule:daily",
-    "helpers:pinGitHubActionDigests"
+    "schedule:daily"
   ],
   "reviewers": ["iamvikshan"],
   "assignees": ["iamvikshan"],
@@ -15,6 +14,7 @@
   "timezone": "UTC",
   "automerge": true,
   "minimumReleaseAge": "3 days",
+  "pinDigests": false,
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["before 6am on monday"],
@@ -41,7 +41,12 @@
     },
     {
       "description": "React packages",
-      "matchPackageNames": ["react", "react-dom", "@types/react", "@types/react-dom"],
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom"
+      ],
       "groupName": "react",
       "labels": ["dependencies", "npm", "react"]
     },
